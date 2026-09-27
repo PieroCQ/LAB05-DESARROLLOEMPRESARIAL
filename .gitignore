@@ -1,0 +1,24 @@
+# Local environment and secrets. Never commit this file.
+.env
+*.sqlite3
+db.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Django collected/static artifacts
+staticfiles/
+
+# Uploaded media (posters, person photos)
+media/
+
+# Editors and OS noise
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
