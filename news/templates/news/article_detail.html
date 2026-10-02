@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} &middot; Portal de Noticias{% endblock %}
+
+{% block content %}
+<article class="article-detail">
+    <p class="breadcrumb"><a href="{% url 'news:home' %}">Portada</a> / Noticia</p>
+
+    <h1 class="article-detail-title">{{ article.title }}</h1>
+
+    <p class="article-detail-meta">
+        Publicado el
+        <time datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:'l, d \d\e F \d\e Y, H:i' }}</time>
+        por <strong>{{ article.author.full_name }}</strong>
+    </p>
+
+    <p class="article-detail-categories">
+        {% for category in article.categories.all %}
+        <a class="tag" href="{% url 'news:category_list' category.slug %}">{{ category.name }}</a>
+        {% endfor %}
+    </p>
+
+    {% if article.featured_image %}
+    <img class="article-detail-image" src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+    {% endif %}
+
+    <div class="article-detail-body">
+        {{ article.body|linebreaks }}
+    </div>
+
+    <aside class="author-box">
+        <h2>Sobre el autor</h2>
+        <p><strong>{{ article.author.full_name }}</strong> &middot; {{ article.author.email }}</p>
+        {% if article.author.bio %}
+        <p>{{ article.author.bio }}</p>
+        {% endif %}
+    </aside>
+
+    <p><a class="back-link" href="{% url 'news:home' %}">&larr; Volver a la portada</a></p>
+</article>
+{% endblock %}

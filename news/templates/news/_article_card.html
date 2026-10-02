@@ -1,0 +1,28 @@
+{% comment %}
+Reusable fragment: renders one article as a card.
+It expects an `article` variable in the context and is included from
+the front page and from the category listing, so the markup is never
+duplicated.
+{% endcomment %}
+<article class="article-card">
+    {% if article.featured_image %}
+    <a href="{% url 'news:article_detail' article.slug %}">
+        <img class="article-card-image" src="{{ article.featured_image.url }}" alt="{{ article.title }}">
+    </a>
+    {% endif %}
+    <div class="article-card-body">
+        <p class="article-card-meta">
+            <time datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:'d M Y, H:i' }}</time>
+            &middot; {{ article.author.full_name }}
+        </p>
+        <h3 class="article-card-title">
+            <a href="{% url 'news:article_detail' article.slug %}">{{ article.title }}</a>
+        </h3>
+        <p class="article-card-summary">{{ article.summary|truncatewords:15 }}</p>
+        <p class="article-card-categories">
+            {% for category in article.categories.all %}
+            <a class="tag" href="{% url 'news:category_list' category.slug %}">{{ category.name }}</a>
+            {% endfor %}
+        </p>
+    </div>
+</article>
