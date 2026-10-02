@@ -1,0 +1,44 @@
+{% extends "movies/base.html" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+{% block heading %}{{ movie.title }} ({{ movie.year }}){% endblock %}
+
+{% block content %}
+  <p>
+    <strong>Generos:</strong> {{ movie.genres.all|join:", " }}<br>
+    <strong>Direccion:</strong> {{ movie.directors.all|join:", " }}<br>
+    <strong>Media de las valoraciones:</strong>
+    {% if average_score %}<span class="score">{{ average_score }}/10</span>{% else %}sin valoraciones{% endif %}
+  </p>
+
+  {% if movie.summary %}<p>{{ movie.summary|linebreaksbr }}</p>{% endif %}
+
+  <h2>Valoraciones</h2>
+  {% if movie.ratings.all %}
+    <ul class="movie-list">
+      {% for rating in movie.ratings.all %}
+        <li>
+          <span class="score">{{ rating.score }}/10</span> &mdash; {{ rating.reviewer }}
+          {% if rating.comment %}<br><small>{{ rating.comment }}</small>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Esta pelicula todavia no tiene valoraciones.</p>
+  {% endif %}
+
+  <h2>Recomendaciones del mismo genero</h2>
+  {% if recommendations %}
+    <ul class="movie-list">
+      {% for other in recommendations %}
+        <li>
+          <a href="{% url 'movies:movie_detail' other.pk %}">{{ other.title }}</a>
+          ({{ other.year }}) &mdash;
+          <span class="score">{{ other.score|floatformat:2 }}/10</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay otras peliculas valoradas del mismo genero.</p>
+  {% endif %}
+{% endblock %}

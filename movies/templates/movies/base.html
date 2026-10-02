@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Catalogo de peliculas{% endblock %}</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+      margin: 0 auto;
+      max-width: 60rem;
+      padding: 1.5rem;
+      line-height: 1.5;
+    }
+    h1 { border-bottom: 2px solid #888; padding-bottom: .3rem; }
+    .genre { margin-bottom: 2rem; }
+    .movie-list { list-style: none; padding-left: 0; }
+    .movie-list li {
+      border: 1px solid #9996;
+      border-radius: .4rem;
+      margin-bottom: .5rem;
+      padding: .5rem .8rem;
+    }
+    .score { font-weight: bold; }
+    nav a { margin-right: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'movies:recommendation_list' %}">Recomendaciones</a>
+    <a href="/admin/">Panel de administracion</a>
+  </nav>
+  <h1>{% block heading %}Catalogo de peliculas{% endblock %}</h1>
+  {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,21 +1,25 @@
+# Local environment and secrets. Never commit this file.
+.env
+*.sqlite3
+db.sqlite3
+
 # Python
 __pycache__/
 *.py[cod]
 *.egg-info/
-
-# Virtual environment
 .venv/
 venv/
+env/
 
-# Django
-db.sqlite3
-/media/
-/staticfiles/
+# Django collected/static artifacts
+staticfiles/
 
-# IDE
-.vscode/
+# Uploaded media (posters, person photos, article images)
+media/
+
+# Editors and OS noise
 .idea/
-
-# OS
+.vscode/
+.DS_Store
 Thumbs.db
 Desktop.ini

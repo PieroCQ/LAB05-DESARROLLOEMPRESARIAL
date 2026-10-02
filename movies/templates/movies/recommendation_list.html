@@ -1,0 +1,28 @@
+{% extends "movies/base.html" %}
+
+{% block title %}Recomendaciones{% endblock %}
+{% block heading %}Peliculas mejor valoradas por genero{% endblock %}
+
+{% block content %}
+  {% if recommendations %}
+    {% for block in recommendations %}
+      <section class="genre">
+        <h2>{{ block.genre.name }} <small>(media {{ block.genre.average_score|floatformat:2 }})</small></h2>
+        <ul class="movie-list">
+          {% for movie in block.movies %}
+            <li>
+              <a href="{% url 'movies:movie_detail' movie.pk %}">{{ movie.title }}</a>
+              ({{ movie.year }}) &mdash;
+              <span class="score">{{ movie.score|floatformat:2 }}/10</span>
+              {% if movie.directors.all %}
+                &mdash; {{ movie.directors.all|join:", " }}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endfor %}
+  {% else %}
+    <p>Todavia no hay valoraciones. Carga datos de prueba desde el panel de administracion.</p>
+  {% endif %}
+{% endblock %}

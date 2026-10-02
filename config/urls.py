@@ -1,6 +1,5 @@
-"""
-Root URL configuration for the news portal project.
-"""
+"""URL configuration: admin site, movies catalogue and news portal."""
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -8,7 +7,8 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('news.urls')),
+    path('news/', include('news.urls')),
+    path('', include('movies.urls')),
 ]
 
 # Serve media files only during development. In production the web
